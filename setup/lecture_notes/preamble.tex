@@ -19,11 +19,64 @@
 \usepackage{marginnote}
 \usepackage{xhfill}
 \usepackage{mparhack}
+
 \usetikzlibrary{babel}
 \usetikzlibrary{cd}
 \usetikzlibrary{positioning}
 \usetikzlibrary{calc}
 \usetikzlibrary{arrows.meta}
+
+\geometry{
+	left=10mm, % left margin
+	textwidth=150mm, % main text block
+	marginparsep=5mm, % gutter between main text block and margin notes
+	marginparwidth=55mm, % width of margin notes
+  bmargin=2cm % height of foot note space
+}
+\graphicspath{ {./imgs/} }
+
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+
+\newlength\FHoffset
+\setlength\FHoffset{1cm}
+
+\addtolength\headwidth{2\FHoffset}
+
+\fancyheadoffset{\FHoffset}
+
+% these lengths will control the headrule trimming to the left and right 
+\newlength\FHleft
+\newlength\FHright
+
+% here the trimmings are controlled by the user
+\setlength\FHleft{1cm}
+\setlength\FHright{-3.25cm}
+
+% The new definition of headrule that will take into acount the trimming(s)
+\newbox\FHline
+\setbox\FHline=\hbox{\hsize=\paperwidth%
+  \hspace*{\FHleft}%
+  \rule{\dimexpr\headwidth-\FHleft-\FHright\relax}{\headrulewidth}\hspace*{\FHright}%
+}
+\renewcommand\headrule{\vskip-.7\baselineskip\copy\FHline}
+
+\renewcommand{\chaptermark}[1]{\markboth{#1}{#1}}
+\fancyhead[R]{}
+\fancyhead[L]{}
+\fancyhead[C]{\hspace{3.25cm}\chaptername\ \thechapter\ --\ \leftmark}
+\fancyfoot[L]{Page \thepage \hspace{1pt} of \pageref{LastPage}}
+\fancyfoot[C]{}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[L]{Page \thepage \hspace{1pt} of \pageref{LastPage}}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
 \def\C{\mathbb{C}}
 \def\R{\mathbb{R}}
 \def\N{\mathbb{N}}
@@ -37,6 +90,9 @@
 \def\Mloc{\mathcal{M}_{\text{loc}}}
 \def\as{\text{ a.s. }}
 \def\cov{\text{Cov}}
+
+
+
 \newtheorem{theorem}[algorithm]{Theorem}
 \newtheorem{corollary}[algorithm]{Corollary}
 \newtheorem{lemma}[algorithm]{Lemma}
@@ -49,14 +105,7 @@
 \newtheorem*{adefinition}{Added definition}
 \newtheorem*{aexample}{Added example}
 \raggedright
-\date{}
-\geometry{
-	left=10mm, % left margin
-	textwidth=150mm, % main text block
-	marginparsep=5mm, % gutter between main text block and margin notes
-	marginparwidth=55mm % width of margin notes
-}
-\graphicspath{ {./imgs/} }
+
 
 \hypersetup{
     colorlinks=true, %set true if you want colored links
@@ -87,7 +136,6 @@
   before skip=\topsep,
   after skip=\topsep,
 }
-
 
 \tcolorboxenvironment{theorem}{
   colback=blue!5!white,

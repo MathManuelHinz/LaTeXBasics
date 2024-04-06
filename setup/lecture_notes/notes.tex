@@ -1,11 +1,24 @@
-\documentclass[a4paper,10pt]{article}
+\documentclass[a4paper, 10pt, oneside]{book}
 \input{preamble.tex}
 
 \author{Manuel Hinz}
 
-\title{Title}
+\title{Lecture notes on Title\\\small{as held by Patrik L. Ferrari}\\\small{SS 24}}
+
+\date{Last update: \today}
 
 \begin{document}
+\newgeometry{left=15mm,right=15mm}
 \maketitle
 \tableofcontents
+\input{warning}
+\restoregeometry
+\chapter{Figures}
+\input{figures/sample_figure}
+\chapter{Problems and solutions}
+\includeproblem{9.2}{problems/sample_problem}
+\includesolution{9.2}{solutions/sample_solution}
+\input{chapters/sample_chapter}
+\newpage 
+Test\footnote{Test}
 \end{document}
