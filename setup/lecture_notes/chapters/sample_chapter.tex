@@ -13,3 +13,20 @@ Some text.
 \begin{remark}
     This is a remark.
 \end{remark}
+
+\begin{algorithm}[H]
+    \caption{}
+    \textbf{Input:} $A\in\R^{m\times n},m\geq n$\\
+    \textbf{Output:} $R$ von der $QR$-Zerlegung ($A$ wird zerstört ``in place'')
+    \begin{algorithmic}
+    \For{$j=1,\dots, n$}
+        \For{$i=m,m-1,\dots, j+1$}
+            \State Berechne $c,s$
+            \State $A[i-1:i,j:n]=\begin{bmatrix}
+                c & s \\
+                -s & c 
+            \end{bmatrix}^t A[i-1:i,j:n]$
+        \EndFor
+    \EndFor
+    \end{algorithmic}
+\end{algorithm}

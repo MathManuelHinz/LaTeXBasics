@@ -20,6 +20,8 @@
 \usepackage{xhfill}
 \usepackage{mparhack}
 
+\definecolor{mygray}{RGB}{239,240,241}
+
 \usetikzlibrary{babel}
 \usetikzlibrary{cd}
 \usetikzlibrary{positioning}
@@ -245,4 +247,11 @@
   sharp corners,
   before skip=\topsep,
   after skip=\topsep,
+}
+
+\tcolorboxenvironment{algorithm}{
+  colback=mygray,
+  boxrule=0pt,
+  left=0pt,right=0pt,top=-12pt,bottom=0pt,
+  sharp corners
 }
