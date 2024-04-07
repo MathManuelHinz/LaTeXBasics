@@ -19,9 +19,10 @@
 \usepackage{marginnote}
 \usepackage{xhfill}
 \usepackage{mparhack}
+\usepackage{pagecolor}
 
 \definecolor{mygray}{RGB}{239,240,241}
-
+\definecolor{mycolor}{RGB}{146,0,88}
 \usetikzlibrary{babel}
 \usetikzlibrary{cd}
 \usetikzlibrary{positioning}
@@ -252,6 +253,8 @@
 \tcolorboxenvironment{algorithm}{
   colback=mygray,
   boxrule=0pt,
+  boxsep=1pt,
+  oversize=2pt,
   left=0pt,right=0pt,top=-12pt,bottom=0pt,
-  sharp corners
+  sharp corners,
 }
