@@ -45,16 +45,13 @@
 \graphicspath{ {./figures/} }
 
 
-
-
-
 \setlength{\cftchapnumwidth}{2.25cm}
 \renewcommand{\cftchappresnum}{\chaptername\ }
 
 
 \pagestyle{fancy}
 
-\renewcommand{\headrule}{\color{red}\hrulefill}
+\renewcommand{\headrule}{\color{mycolor}\hrulefill}
 
 \newlength\FHoffset
 \setlength\FHoffset{1cm}
@@ -128,10 +125,11 @@
     colorlinks=true, %set true if you want colored links
     linktoc=all,     %set to all if you want both sections and subsections linked
     linkcolor=mycolor,  %choose some color if you want links to stand out
-    linkbordercolor=mycolor
+    linkbordercolor=mycolor,
+    urlcolor=mycolor
 }
 
-\chapterfont{\color{blue}}
+\chapterfont{\color{mycolor}}
 
 \titleformat{\chapter}[display]
   {\normalfont\bfseries\flushleft\color{mycolor}}{\Huge\chaptertitlename\ \thechapter:}{0pt}{\Huge}
