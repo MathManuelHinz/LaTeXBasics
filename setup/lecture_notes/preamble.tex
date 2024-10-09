@@ -7,14 +7,13 @@
 \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{mathtools}
-\usepackage{hyperref}
 \usepackage{ dsfont }
 \usepackage[most]{tcolorbox}
 \usepackage{tikz}
 \usepackage{xcolor}
 \usepackage{adjustbox}
 \usepackage{mathrsfs}
-\usepackage[chapter]{algorithm}
+\usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{marginnote}
 \usepackage{xhfill}
@@ -26,9 +25,13 @@
 \usepackage{lastpage}
 \usepackage{fancyhdr}
 \usepackage{tocloft}
+\usepackage{hyperref}
+\usepackage{etoolbox}
+\usepackage{xstring}
+
 
 \definecolor{mygray}{RGB}{239,240,241}
-\definecolor{mycolor}{RGB}{146,0,88}
+\definecolor{mycolor}{RGB}{6,77,135}
 \usetikzlibrary{babel}
 \usetikzlibrary{cd}
 \usetikzlibrary{positioning}
@@ -43,8 +46,6 @@
   bmargin=2cm % height of foot note space
 }
 \graphicspath{ {./figures/} }
-
-
 \setlength{\cftchapnumwidth}{2.25cm}
 \renewcommand{\cftchappresnum}{\chaptername\ }
 
@@ -95,29 +96,48 @@
 \def\R{\mathbb{R}}
 \def\N{\mathbb{N}}
 \def\Q{\mathbb{Q}}
+\def\bE{\mathbb{E}}
+\def\bP{\mathbb{P}}
 \def\Z{\mathbb{Z}}
 \def\cA{\mathcal{A}}
 \def\cM{\mathcal{M}}
 \def\cE{\mathcal{E}}
 \def\cF{\mathcal{F}}
 \def\cS{\mathcal{S}}
+\def\cH{\mathcal{H}}
+\def\cN{\mathcal{N}}
 \def\Mloc{\mathcal{M}_{\text{loc}}}
 \def\as{\text{ a.s. }}
-\def\cov{\text{Cov}}
+\def\cov{\text{cov}}
+\def\gp{\text{GP}}
+\def\tr{\text{tr}}
+\def\Id{\text{Id}}
+\def\Var{\text{Var}}
+\def\EDM{\text{EDM}}
+\def\DM{\text{DM}}
+\def\Lrw{L_{\text{RW}}}
+\def\Lsym{L_{\text{sym}}}
+\def\dd{{\text{dd}}}
+\def\KL{{\text{KL}}}
+\DeclareMathOperator*{\argmin}{\text{argmin}}
 
 
+\counterwithout*{equation}{equation}
+\renewcommand{\theequation}{\arabic{equation}}
 
-\newtheorem{theorem}[algorithm]{Theorem}
-\newtheorem{corollary}[algorithm]{Corollary}
-\newtheorem{lemma}[algorithm]{Lemma}
-\newtheorem{proposition}[algorithm]{Proposition}
-\newtheorem{definition}[algorithm]{Definition}
+
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
 \newtheorem*{*definition}{Definition}
 \newtheorem*{remark}{Remark}
 \newtheorem*{aremark}{Added remark}
-\newtheorem{example}[algorithm]{Example}
+\newtheorem*{example}{Example}
 \newtheorem*{adefinition}{Added definition}
 \newtheorem*{aexample}{Added example}
+\newtheorem*{theorem*}{Theorem}
 \raggedright
 
 
@@ -128,8 +148,6 @@
     linkbordercolor=mycolor,
     urlcolor=mycolor
 }
-
-\chapterfont{\color{mycolor}}
 
 \titleformat{\chapter}[display]
   {\normalfont\bfseries\flushleft\color{mycolor}}{\Huge\chaptertitlename\ \thechapter:}{0pt}{\Huge}
@@ -147,11 +165,13 @@
 \renewcommand{\cftsubsecleader}{\color{mycolor} \cftdotfill{\cftsecdotsep}}
 \renewcommand{\cftsubsubsecleader}{\color{mycolor} \cftdotfill{\cftsecdotsep}}
 
+\def\lecturelist{}
+\def\tutlist{}
 
-\newcommand{\beginlecture}[2]{\marginnote{Start of lecture #1 (#2)}}
+\newcommand{\beginlecture}[2]{\hypertarget{lec#1}{}\listxadd{\lecturelist}{lec#1}\marginnote{Start of lecture #1 (#2)}}
+\newcommand{\begintutorial}[2]{\hypertarget{tut#1}{}\listxadd{\tutlist}{tut#1}\marginnote{Start of tutorial #1 (#2)}}
 \newcommand{\dhighlight}[1]{{\color{mycolor}{\underline{{\textbf{#1}}}}}}
 \newcommand{\highlight}[1]{{\color{mycolor}{\textbf{#1}}}}
-
 \newcommand{\includeproblem}[2]{
 \begin{tcolorbox}[enhanced,breakable,
 	title=Problem #1,frame style={color=mycolor}]
@@ -172,121 +192,132 @@
   colback=blue!5!white,
   boxrule=0pt,
   boxsep=1pt,
-  left=0pt,right=0pt,top=2pt,bottom=2pt,
+  left=2pt,right=2pt,top=2pt,bottom=2pt,
   oversize=2pt,
   sharp corners,
   before skip=\topsep,
   after skip=\topsep,
+  breakable
 }
 
 \tcolorboxenvironment{theorem}{
   colback=blue!5!white,
   boxrule=0pt,
   boxsep=1pt,
-  left=0pt,right=0pt,top=2pt,bottom=2pt,
+  left=2pt,right=2pt,top=2pt,bottom=2pt,
   oversize=2pt,
   sharp corners,
   before skip=\topsep,
   after skip=\topsep,
+  breakable
 }
 
 \tcolorboxenvironment{lemma}{
   colback=blue!5!white,
   boxrule=0pt,
   boxsep=1pt,
-  left=0pt,right=0pt,top=2pt,bottom=2pt,
+  left=2pt,right=2pt,top=2pt,bottom=2pt,
   oversize=2pt,
   sharp corners,
   before skip=\topsep,
   after skip=\topsep,
+  breakable
 }
 
 \tcolorboxenvironment{proposition}{
   colback=blue!5!white,
   boxrule=0pt,
   boxsep=1pt,
-  left=0pt,right=0pt,top=2pt,bottom=2pt,
+  left=2pt,right=2pt,top=2pt,bottom=2pt,
   oversize=2pt,
   sharp corners,
   before skip=\topsep,
   after skip=\topsep,
+  breakable
 }
 
 \tcolorboxenvironment{*definition}{
   colback=blue!5!white,
   boxrule=0pt,
   boxsep=1pt,
-  left=0pt,right=0pt,top=2pt,bottom=2pt,
+  left=2pt,right=2pt,top=2pt,bottom=2pt,
   oversize=2pt,
   sharp corners,
   before skip=\topsep,
   after skip=\topsep,
+  breakable
 }
 
 \tcolorboxenvironment{remark}{
   colback=red!5!white,
   boxrule=0pt,
   boxsep=1pt,
-  left=0pt,right=0pt,top=2pt,bottom=2pt,
+  left=2pt,right=2pt,top=2pt,bottom=2pt,
   oversize=2pt,
   sharp corners,
   before skip=\topsep,
   after skip=\topsep,
+  breakable
 }
 
 \tcolorboxenvironment{aremark}{
   colback=red!5!white,
   boxrule=0pt,
   boxsep=1pt,
-  left=0pt,right=0pt,top=2pt,bottom=2pt,
+  left=2pt,right=2pt,top=2pt,bottom=2pt,
   oversize=2pt,
   sharp corners,
   before skip=\topsep,
   after skip=\topsep,
+  breakable
 }
 
 \tcolorboxenvironment{example}{
   colback=red!5!white,
   boxrule=0pt,
   boxsep=1pt,
-  left=0pt,right=0pt,top=2pt,bottom=2pt,
+  left=2pt,right=2pt,top=2pt,bottom=2pt,
   oversize=2pt,
   sharp corners,
   before skip=\topsep,
   after skip=\topsep,
+  breakable
 }
 
 \tcolorboxenvironment{adefinition}{
   colback=blue!5!white,
   boxrule=0pt,
   boxsep=1pt,
-  left=0pt,right=0pt,top=2pt,bottom=2pt,
+  left=2pt,right=2pt,top=2pt,bottom=2pt,
   oversize=2pt,
   sharp corners,
   before skip=\topsep,
   after skip=\topsep,
+  breakable
 }
 
 \tcolorboxenvironment{aexample}{
   colback=red!5!white,
   boxrule=0pt,
   boxsep=1pt,
-  left=0pt,right=0pt,top=2pt,bottom=2pt,
+  left=2pt,right=2pt,top=2pt,bottom=2pt,
   oversize=2pt,
   sharp corners,
   before skip=\topsep,
   after skip=\topsep,
+  breakable
 }
 
 \tcolorboxenvironment{definition}{
   colback=green!5!white,
   boxrule=0pt,
   boxsep=1pt,
-  left=0pt,right=0pt,top=2pt,bottom=2pt,
+  left=2pt,right=2pt,top=2pt,bottom=2pt,
   oversize=2pt,
   sharp corners,
   before skip=\topsep,
   after skip=\topsep,
+  breakable
 }
 
 \tcolorboxenvironment{algorithm}{
@@ -294,6 +325,7 @@
   boxrule=0pt,
   boxsep=1pt,
   oversize=2pt,
-  left=0pt,right=0pt,top=-12pt,bottom=0pt,
+  left=2pt,right=2pt,top=-12pt,bottom=0pt,
   sharp corners,
+  breakable
 }
